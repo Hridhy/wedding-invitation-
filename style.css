@@ -1,0 +1,335 @@
+/* =========================================
+   BASIC RESET
+========================================= */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+/* FIX 5 (MOBILE VIEW): body now shows a soft pink backdrop on desktop,
+   and the invitation sits in a phone-width column in the middle. */
+body {
+    font-family: "Poppins", sans-serif;
+    overflow: hidden;
+    background: #efe3ee;
+}
+
+.app {
+    position: relative;
+    width: 100%;
+    max-width: 430px;           /* <- phone width. change if you want wider */
+    height: 100vh;
+    height: 100dvh;             /* correct height on mobile browsers */
+    margin: 0 auto;
+    overflow: hidden;
+    box-shadow: 0 0 45px rgba(90, 30, 80, .30);
+    background: #fff8f8;
+}
+
+/* =========================================
+   PAGE  (FIX 6: absolute inside .app, not fixed to the whole screen)
+========================================= */
+.page {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+}
+
+/* =========================================
+   PAGE 1
+========================================= */
+.page-one {
+    z-index: 10;
+    overflow: hidden;           /* page 1 never scrolls; slider is pinned */
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;    /* FIX 7: content starts at top like reference */
+
+    text-align: center;
+    color: #fff;
+
+    /* FIX 8 (FULL-LENGTH IMAGE): use a TALL portrait image here
+       (about 1080 x 2400+). 'cover' + 'top' fills the whole column. */
+    background-color: #e9a6d8;
+    background-image: url("assets/opening-bg.jpg");
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+
+    transition: transform 1.2s cubic-bezier(.77,0,.18,1), opacity 1.2s ease;
+}
+
+.page-one.opened {
+    transform: translateX(-100%);
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* FIX 9: the old file had .page-one-content nested inside itself 3 times.
+   Replaced with one clean rule. */
+.page-one-content {
+    position: relative;
+    z-index: 5;
+    width: 100%;
+    padding: 12vh 20px 140px;   /* bottom space keeps clear of the slider */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* =========================================
+   TEXT
+========================================= */
+.small-text {
+    font-family: "Noto Serif Malayalam", serif;
+    font-size: 16px;
+    margin-bottom: 12px;
+    opacity: .95;
+}
+
+.malayalam-title {
+    font-family: "Noto Serif Malayalam", serif;
+    font-size: clamp(42px, 13vw, 60px);
+    line-height: 1.25;
+    font-weight: 500;
+    margin-bottom: 12px;
+}
+
+.invite-line {
+    font-size: 10px;
+    font-weight: 500;
+    line-height: 1.5;
+    margin-bottom: 8px;
+}
+
+.couple-names {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 18px;
+}
+
+.couple-names .name {
+    font-family: "DM Serif Display", serif;
+    font-size: clamp(38px, 11vw, 48px);
+    line-height: 1.1;
+    margin: 0;
+}
+
+.couple-names .with-tag {
+    font-family: "Kaushan Script", cursive;
+    font-size: 18px;
+    color: #fff;
+    background: #ff1493;            /* hot pink tag */
+    padding: 2px 12px;
+    margin: -2px 0;
+    transform: rotate(-18deg);      /* the tilt */
+    position: relative;
+    z-index: 2;
+}
+
+.wedding-date {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 20px;
+    letter-spacing: 4px;
+    margin-bottom: 25px;
+}
+
+/* =========================================
+   COUNTDOWN
+========================================= */
+.countdown { display: flex; justify-content: center; gap: 10px; margin-bottom: 25px; }
+
+.count-box {
+    width: 64px; height: 64px;
+    border-radius: 14px;
+    background: rgba(255, 105, 190, .30);
+    /* FIX 10: removed the duplicate 'border' line */
+    border: 1px solid rgba(255,255,255,.45);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+}
+
+.count-box span { font-family: "Cormorant Garamond", serif; font-size: 26px; font-weight: 600; line-height: 1; }
+.count-box small { font-size: 9px; margin-top: 5px; text-transform: uppercase; letter-spacing: 1px; }
+
+/* =========================================
+   MUSIC BUTTON
+========================================= */
+.music-button {
+    border: 1px solid rgba(255,255,255,.35);
+    outline: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; gap: 14px;
+    padding: 11px 22px; border-radius: 30px; color: #fff;
+    background: rgba(255,255,255,.20);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    font-family: "Poppins", sans-serif; font-size: 13px;
+}
+.music-button span:last-child { font-size: 18px; }
+
+/* =========================================
+   ATTENDING SLIDER  (FIX 11: pinned to bottom of the column)
+========================================= */
+.slide-area {
+    position: absolute;
+    z-index: 6;
+    left: 50%;
+    bottom: calc(36px + env(safe-area-inset-bottom, 0px));
+    transform: translateX(-50%);
+
+    width: min(340px, 84%);
+    height: 70px;
+    padding: 5px;
+    border-radius: 50px;
+    background: rgba(255,255,255,.22);
+    border: 1px solid rgba(255,255,255,.55);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(100,30,80,.12);
+}
+
+.slide-track {
+    position: relative;
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    user-select: none; -webkit-user-select: none;
+}
+
+.slide-text {
+    position: absolute; left: 0; right: 0;
+    padding-left: 40px;
+    text-align: center;
+    font-size: 15px;
+    color: #8c146d;
+    pointer-events: none;
+}
+
+.slide-button {
+    position: absolute; left: 0; top: 0;
+    width: 60px; height: 60px;
+    border-radius: 50%;
+    background: #fff; color: #8d1671;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 38px; font-family: Arial, sans-serif; line-height: 1;
+    box-shadow: 0 5px 15px rgba(0,0,0,.12);
+    z-index: 5;
+    cursor: grab;
+    touch-action: none;                 /* needed so the finger drags the button, not the page */
+    transition: transform .3s ease;     /* springs back when released early */
+}
+.slide-button span { display: block; margin-top: -4px; }
+
+/* while dragging: no delay, bigger shadow */
+.slide-button.dragging { transition: none; cursor: grabbing; box-shadow: 0 8px 20px rgba(0,0,0,.2); }
+
+/* =========================================
+   FLOWERS
+========================================= */
+.flower { position: absolute; z-index: 2; font-size: 60px; opacity: .18; color: #fff; }
+.flower-one { top: 5%; left: 5%; }
+.flower-two { bottom: 14%; right: 5%; }
+
+/* =========================================
+   MOVING PETALS
+   FIX 12: this whole block was INSIDE the @media (max-width:500px) rule
+   (and nested inside itself), so petals only worked on small screens.
+   Now it's top-level and flat.
+========================================= */
+.moving-petals {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    overflow: hidden;
+    background:
+        radial-gradient(ellipse at 20% 20%, rgba(255,255,255,.08), transparent 35%),
+        radial-gradient(ellipse at 80% 60%, rgba(255,255,255,.06), transparent 40%);
+    animation: backgroundGlow 8s ease-in-out infinite alternate;
+}
+
+.petal {
+    position: absolute;
+    width: 18px; height: 8px;
+    background: rgba(245,100,145,.65);
+    border-radius: 100% 0 100% 0;
+    animation: fallingPetal 8s linear infinite;
+}
+.petal-1 { left: 10%; top: 5%;  animation-delay: 0s; }
+.petal-2 { left: 75%; top: 15%; animation-delay: 2s; }
+.petal-3 { left: 40%; top: 30%; animation-delay: 4s; }
+.petal-4 { left: 85%; top: 45%; animation-delay: 1s; }
+.petal-5 { left: 20%; top: 55%; animation-delay: 5s; }
+.petal-6 { left: 60%; top: 70%; animation-delay: 3s; }
+
+@keyframes fallingPetal {
+    0%   { transform: translate3d(0,-30px,0) rotate(0deg); opacity: 0; }
+    10%  { opacity: 1; }
+    50%  { transform: translate3d(70px,350px,0) rotate(180deg); }
+    100% { transform: translate3d(-40px,850px,0) rotate(360deg); opacity: 0; }
+}
+
+@keyframes backgroundGlow {
+    0%   { transform: scale(1);    opacity: .65; }
+    100% { transform: scale(1.04); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .petal, .moving-petals { animation: none; }
+}
+
+/* =========================================
+   PAGE 2
+========================================= */
+.page-two {
+    z-index: 1;
+    background: #fff8f8;
+    color: #5d3c4b;
+    padding: 50px 20px 80px;
+    overflow-y: auto;
+}
+
+.details-container { max-width: 600px; margin: auto; text-align: center; }
+
+.top-label { font-size: 10px; letter-spacing: 3px; margin-bottom: 15px; color: #9b6c7d; }
+.details-title { font-family: "Cormorant Garamond", serif; font-size: 36px; font-weight: 500; margin-bottom: 15px; }
+.names-large { font-family: "Great Vibes", cursive; font-size: 52px; color: #a04c79; margin-bottom: 10px; }
+.names-large span { font-family: "Cormorant Garamond", serif; font-size: 28px; }
+.date-large { font-family: "Cormorant Garamond", serif; font-size: 22px; margin-bottom: 30px; }
+
+.couple-photo { width: 100%; max-width: 450px; margin: auto; border-radius: 25px; overflow: hidden; box-shadow: 0 15px 35px rgba(80,40,60,.15); }
+.couple-photo img { width: 100%; display: block; aspect-ratio: 4/5; object-fit: cover; }
+
+.event-section, .family-section, .gallery-section, .contact-section { padding: 45px 10px; }
+
+.event-section h3, .family-section h3, .gallery-section h3, .contact-section h3 {
+    font-family: "Cormorant Garamond", serif; font-size: 30px; margin-bottom: 15px; color: #9b4e73;
+}
+
+.event-section p { margin: 7px 0; font-size: 14px; }
+
+.map-button, .contact-section a {
+    display: inline-block; padding: 11px 24px; border-radius: 25px;
+    background: #a04c79; color: #fff; text-decoration: none; font-size: 13px;
+}
+.map-button { margin-top: 18px; }
+
+.family-section p { font-size: 14px; line-height: 1.8; max-width: 450px; margin: auto; }
+
+.gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 20px; }
+.gallery img { width: 100%; height: 170px; object-fit: cover; border-radius: 15px; }
+
+.closing-text { font-family: "Great Vibes", cursive; font-size: 32px; color: #a04c79; padding: 30px 10px; }
+
+/* =========================================
+   SMALL PHONES  (FIX 13: media query now only holds small tweaks;
+   the old one wrapped the petals and was never closed correctly)
+========================================= */
+@media (max-width: 380px) {
+    .count-box { width: 58px; height: 58px; }
+    .count-box span { font-size: 22px; }
+}
