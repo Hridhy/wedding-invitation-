@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- FIX 1: viewport-fit + no zoom so it behaves like an app on phones -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+    <title>Hridhya & Vibin | Wedding Invitation</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Great+Vibes&family=Noto+Serif+Malayalam:wght@400;500;600&family=Poppins:wght@400;500;600&family=DM+Serif+Display&family=Kaushan+Script&display=swap"
+    rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <audio id="weddingMusic" loop preload="auto">
+        <source src="assets/ritha-dhamava.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- FIX 2 (MOBILE VIEW): new .app wrapper. It makes everything a centered
+         phone-width column on desktop (like your reference invitation). -->
+    <div class="app">
+
+        <!-- ================= PAGE 1 ================= -->
+        <section class="page page-one" id="pageOne">
+
+            <div class="moving-petals">
+                <div class="petal petal-1"></div>
+                <div class="petal petal-2"></div>
+                <div class="petal petal-3"></div>
+                <div class="petal petal-4"></div>
+                <div class="petal petal-5"></div>
+                <div class="petal petal-6"></div>
+            </div>
+
+            <div class="flower flower-one">✿</div>
+            <div class="flower flower-two">✿</div>
+
+            <div class="page-one-content">
+
+                <div class="small-text">വിവാഹ ക്ഷണം</div>
+
+                <h1 class="malayalam-title">കല്യാണം</h1>
+
+<p class="invite-line">
+    We cordially invite you to honor us with your<br>
+    presence at the blessed occasion of our wedding
+</p>
+
+<div class="couple-names">
+    <span class="name">Hridhya</span>
+    <span class="with-tag">with</span>
+    <span class="name">Vibin</span>
+</div>
+                <div class="wedding-date">13 · 12 · 2026</div>
+
+                <div class="countdown">
+                    <div class="count-box"><span id="days">00</span><small>Days</small></div>
+                    <div class="count-box"><span id="hours">00</span><small>Hours</small></div>
+                    <div class="count-box"><span id="minutes">00</span><small>Minutes</small></div>
+                    <div class="count-box"><span id="seconds">00</span><small>Seconds</small></div>
+                </div>
+
+                <button class="music-button" id="musicButton">
+                    <span>Ritha Dhamava</span>
+                    <span id="musicIcon">♪</span>
+                </button>
+
+            </div>
+
+            <!-- FIX 3: slider moved OUT of .page-one-content so it can sit at the
+                 bottom of the long image (like the reference). -->
+            <div class="slide-area" id="slideArea">
+                <div class="slide-track" id="slideTrack">
+                    <div class="slide-button" id="slideButton"><span>›</span></div>
+                    <div class="slide-text" id="slideText">Yeah, I am attending</div>
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- ================= PAGE 2 ================= -->
+        <section class="page page-two" id="pageTwo">
+            <div class="details-container">
+
+                <div class="top-label">TOGETHER WITH OUR FAMILIES</div>
+                <h2 class="details-title">We are getting married</h2>
+                <div class="names-large">Hridhya <span>&</span> Vibin</div>
+                <div class="date-large">13 December 2026</div>
+
+                <div class="couple-photo">
+                    <img src="assets/couple.jpg" alt="Hridhya and Vibin">
+                </div>
+
+                <div class="event-section">
+                    <h3>Wedding Ceremony</h3>
+                    <p>Sunday, 13 December 2026</p>
+                    <p>12:00 PM</p>
+                    <p>Wedding Venue</p>
+                    <a class="map-button" href="https://www.google.com/maps/dir//11.5592296,75.6198047/" target="_blank">View Location</a>
+                </div>
+
+                <div class="family-section">
+                    <h3>With Love From Our Families</h3>
+                    <p>We warmly invite you to celebrate this beautiful beginning with us.</p>
+                </div>
+
+                <div class="gallery-section">
+                    <h3>Our Moments</h3>
+                    <div class="gallery">
+                        <!-- FIX 4: removed the stray word "couple" that was sitting between images -->
+                        <img src="assets/couple1.jpg" alt="Wedding photo">
+                        <img src="assets/couple2.jpg" alt="Wedding photo">
+                        <img src="assets/couple3.jpg" alt="Wedding photo">
+                        <img src="assets/couple4.jpg" alt="Wedding photo">
+                    </div>
+                </div>
+
+                <div class="contact-section">
+                    <h3>Contact</h3>
+                    <a href="tel:+919745015766">Contact Family</a>
+                </div>
+
+                <div class="closing-text">Can't wait to celebrate this special day with you ❤️</div>
+
+            </div>
+        </section>
+<button class="music-float" id="musicFloat">♪</button>
+    </div><!-- /.app -->
+
+    <script src="script.js"></script>
+</body>
+</html>
